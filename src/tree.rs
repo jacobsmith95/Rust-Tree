@@ -1,39 +1,40 @@
 // An implementation of the Tree data structure in Rust
 
-pub struct Tree<T> {
-    head: Link<T>
+pub struct Tree<i32> {
+    head: Link<i32>
 }
 
-type Link <T> = Option<Box<Node<T>>>;
+type Link <i32> = Option<Box<Node<T>>>;
 
-struct Node<T> {
-    left: Link<T>,
-    right: Link<T>,
-    elem: T,
+struct Node<i32> {
+    left: Link<i32>,
+    right: Link<i32>,
+    elem: i32,
 }
 
-impl<T> Tree<T> {
+impl Tree<i32> {
     pub fn new() -> Self {
         Tree { head: None }
     }
 
-    pub fn push(&mut self, elem: T) {
+    pub fn push(&mut self, elem: i32) {
+        let cur_link = self.head.take();
         let new_node = Box::new(Node {
             elem: elem,
-            left: self.head.take(),
-            right: None,
+            left: if elem<cur_link.as_ref() {},
+            right: if elem>cur_link.as_ref() {},
         });
-        self.head = Some(new_node);
+        //self.head = Some(new_node);
     }
 
-    pub fn pop(&mut self) -> Option<T> {
+    pub fn pop(&mut self) -> Option<i32> {
         self.head.take().map(|node| {
             self.head = node.left;
             node.elem
         })
     }
 
-    pub fn peek(&self) -> Option<&T> {
+    pub fn peek(&self) -> Option<&i32> {
         self.head.as_ref().map(|node| {
             &node.elem
         })
